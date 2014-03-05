@@ -21,8 +21,8 @@ from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.md')).read()
-CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
-LICENSE = open(os.path.join(here, 'LICENSE.txt')).read()
+CHANGES = open(os.path.join(here, 'CHANGES')).read()
+LICENSE = open(os.path.join(here, 'LICENSE')).read()
 
 requires = [
         'mako',

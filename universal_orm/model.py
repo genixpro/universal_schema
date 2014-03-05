@@ -47,4 +47,6 @@ class Model:
     def schema(format):
         """ This returns the Schema for this model, converted into a supported format. For all known supported formats,
             you can use formats.get_all_formats(). """
-        
+        pass
+
+

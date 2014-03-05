@@ -17,9 +17,7 @@
 
 
 from fields import *
-
-
-class 
-
+from format import Format
+from model import Model
 
 

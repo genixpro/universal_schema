@@ -31,9 +31,13 @@ class String(Field):
     
 
 class Integer(Field):
-    """ Represents an integer. 
+    """ Represents an integer. """
     pass
-    
 
+
+
+class Integer(Field):
+    """ Represents an integer. """
+    pass
 
 
