@@ -5,6 +5,8 @@ Universal Schema is a tool which allows you to express your data model once and 
 
 The problem is that we often need to express the same basic data model to multiple different libraries that do serialization in some form and sometimes in several different programming languages, such as in javascript pages with a Python backend. Similar validation routines must exist on both client and server side, and similar data models expressed for serialization and storage in backend services like task processors and databases.
 
+Our documentation can be found at http://universal-schema.readthedocs.org/en/latest/
+
 Universal Schema currently supports the following libraries:
 
 Colander - schemas, data
