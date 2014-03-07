@@ -18,6 +18,7 @@
 from universal_schema.fields import Field
 from universal_schema.format import Format
 import universal_schema.format
+from UserDict import UserDict
 
 class MetaModel(type):
     """ The MetaModel processes the Model class and gathers up all of the declarations which 
@@ -35,15 +36,15 @@ class MetaModel(type):
         
         return type.__new__(mcs, name, bases, classdict)
 
-class Model:
+class Model(object, UserDict):
     """ Every Model in the Universal Schema is a derivative of this one. You define the model by by deriving a
         class from Model, and putting in attributes which are instiatiated objects of classes derived from 
         fields.Field"""
     __metaclass__ = MetaModel
     
-    def __init__(self):
-        """ Sets up the model. """
-        pass
+    def __init__(self, data = {}):
+        """ Sets up the model from the given pieces of data. """
+        self.data = data
     
     @classmethod
     def schema(cls, format):
@@ -51,4 +52,22 @@ class Model:
             you can use formats.get_all_formats(). """
         return universal_schema.format.formats[format].schema(cls)
 
-
+    @classmethod
+    def create_from(cls, format, data):
+        """ This creates a new Model object from the given data, assuming that the data comes from the given format."""
+        return cls(universal_schema.format.formats[format].decode(cls, data))
+    
+    def update_from(self, format, data):
+        self.data.update(universal_schema.format.formats[format].decode(self.__class__, data))
+        
+    
+    def to(self, format):
+        """ This encodes the data in this Model object into the given format."""
+        return universal_schema.format.formats[format].encode(self.__class__, self.data)
+    
+    
+    def __getattr__(self, name):
+        if name in self.data:
+            return self.data[name]
+        raise AttributeError("'%s' object has no attribute '%s'" % (self.__class__.__name__, name))
+    

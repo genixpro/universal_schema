@@ -15,33 +15,11 @@
 #
 #
 
-import colander
-
-class Binary(object):
-    def serialize(self, node, appstruct):
-        if appstruct is colander.null:
-            return colander.null
-        if appstruct is None:
-            return None
-        if not isinstance(appstruct, str):
-            raise colander.Invalid(node, '%r is not a string' % appstruct)
-        return appstruct
-
-    def deserialize(self, node, cstruct):
-        if cstruct is colander.null:
-            return colander.null
-        if cstruct is None:
-            return None
-        if not isinstance(cstruct, basestring):
-            raise colander.Invalid(node, '%r is not a string' % cstruct)
-        return cstruct
-    
-    def cstruct_children(self, node, cstruct):
-        return []
+from universal_schema.formats.colanderformat import Binary
 
 class ${name}(colander.MappingSchema):
     % for field in fields.itervalues():
-        ${field.name} = colander.SchemaNode(colander.${format.colander_class_name(field)}(), validator=${format.colander_validator(field)}, default=${format.colander_default(field)},  missing = colander.drop);
+        ${field.name} = colander.SchemaNode(${format.colander_class_name(field)}(), validator=${format.colander_validator(field)}, default=${format.colander_default(field)},  missing = colander.drop);
     % endfor
 
 

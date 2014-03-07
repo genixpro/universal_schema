@@ -21,6 +21,9 @@ class Field:
     
     def __init__(self, **attributes):
         self.attributes = attributes
+
+        for name,value in attributes.iteritems():
+            setattr(self, name, value)
     
     
 

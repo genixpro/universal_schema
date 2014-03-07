@@ -22,31 +22,63 @@ from universal_schema import data_file
 from pprint import pprint
 import colander
 
+class ColanderBinary(object):
+    def serialize(self, node, appstruct):
+        if appstruct is colander.null:
+            return colander.null
+        if appstruct is None:
+            return None
+        if not isinstance(appstruct, str):
+            raise colander.Invalid(node, '%r is not a string' % appstruct)
+        return appstruct
+    
+    def deserialize(self, node, cstruct):
+        if cstruct is colander.null:
+            return colander.null
+        if cstruct is None:
+            return None
+        if not isinstance(cstruct, basestring):
+            raise colander.Invalid(node, '%r is not a string' % cstruct)
+        return cstruct
+    
+    def cstruct_children(self, node, cstruct):
+        return []
+
 class ColanderFormat(Format):
     """ ColanderFormat allows you to plug in Universal Schema into the Colander libary: http://colander.readthedocs.org/en/latest/."""
     def __init__(self):
         self.template = Template(filename=data_file('/templates/colander.mako'))
         
     
-    def schema(self, model):
+    def schema(self, modelcls):
         """ Generates a Python Class object derived from Colander.Model. """
-        template_code = self.template.render(name = model.__name__, format = self, fields = model.__fields__)
+        template_code = self.template.render(name = modelcls.__name__, format = self, fields = modelcls.__fields__)
         exec(compile(template_code, "/templates/colander.mako", "exec"))
-        return vars()[model.__name__]
+        return vars()[modelcls.__name__]()
+
+    def encode(self, modelcls, data):
+        schema = self.schema(modelcls)
+        return schema.serialize(data)
+    
+    def decode(self, modelcls, data):
+        schema = self.schema(modelcls)
+        return schema.deserialize(data)
 
     def colander_class_name(self, field):
         if isinstance(field, String):
-            return "String"
+            return "colander.String"
         elif isinstance(field, Integer):
-            return "Integer"
+            return "colander.Integer"
         elif isinstance(field, Float):
-            return "Float"
+            return "colander.Float"
         elif isinstance(field, Boolean):
-            return "Boolean"
+            return "colander.Boolean"
         elif isinstance(field, Binary):
-            return "String"
+            return "ColanderBinary"
         elif isinstance(field, DateTime):
-            return "DateTime"
+            return "colander.DateTime"
+        else:
+            raise TypeError(field.__class__.__name__ + " not supported.")
     
     def colander_validator(self, field):
         if isinstance(field, String):
