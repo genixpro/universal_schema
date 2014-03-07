@@ -1,3 +1,4 @@
 *~
 *.pyc
 universal_schema.egg-info/*
+build/*
