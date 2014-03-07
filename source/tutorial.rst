@@ -18,6 +18,7 @@ To get started with Universal schema, first import the Model class and any numbe
 
 
 Directly from the class object, you can generate schemas for alternate systems::
+
     colander_schema = Account.schema("colander")
     # This creates an instantiated Colander.Model object, which can be used to serialize and deserialize
     # the way that colander does. By default, all variables are set as missing=colander.drop and default=None
