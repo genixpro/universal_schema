@@ -71,3 +71,9 @@ class Model(object, UserDict):
             return self.data[name]
         raise AttributeError("'%s' object has no attribute '%s'" % (self.__class__.__name__, name))
     
+    def __setattr__(self, name, value):
+        if name in self.__fields__:
+            self.data[name] = value
+        self.__dict__[name] = value
+        
+    

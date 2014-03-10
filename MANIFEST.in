@@ -1,0 +1,4 @@
+include *.txt *.ini *.cfg *.rst CHANGES LICENSE Makefile *.md
+recursive-include universal_schema *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml *.otf *.eot *.svg *.ttf *.woff
+
+

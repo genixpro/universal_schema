@@ -20,25 +20,22 @@ import os
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.md')).read()
-CHANGES = open(os.path.join(here, 'CHANGES')).read()
-LICENSE = open(os.path.join(here, 'LICENSE')).read()
 
 requires = [
         'mako',
     ]
 
 setup(name='universal_schema',
-      version='0.0',
+      version='0.1.4',
       description='universal_schema',
-      long_description=README + '\n\n' + CHANGES,
+      long_description=""" """,
       classifiers=[
         "Programming Language :: Python",
         "Topic :: Database",
         ],
       author='Bradley Arsenault',
       author_email='bradley.allen.arsenault@gmail.com',
-      url='',
+      url='http://universal-schema.readthedocs.org/en/latest/',
       keywords='universal schema orm database validation format conversion',
       packages=find_packages(),
       include_package_data=True,
