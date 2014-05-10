@@ -26,7 +26,7 @@ requires = [
     ]
 
 setup(name='universal_schema',
-      version='0.1.4',
+      version='0.1.5',
       description='universal_schema',
       long_description=""" """,
       classifiers=[

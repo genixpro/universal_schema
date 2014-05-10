@@ -44,7 +44,7 @@ class Model(object, UserDict):
     
     def __init__(self, data = {}):
         """ Sets up the model from the given pieces of data. """
-        self.data = data
+        self.data = dict(data)
     
     @classmethod
     def schema(cls, format):
